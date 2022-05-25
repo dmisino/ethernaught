@@ -412,7 +412,7 @@ Source contract: [contracts/Recovery.sol](contracts/Recovery.sol)
 
 **Solution**: In order to create the most efficient code possible which meets the requirements, you would need to write raw EVM bytecode. Solving this one yourself means learning how to write assembly for Ethereum.
 
-You can review the information in the [Official Solidity Documentation](https://docs.soliditylang.org/en/develop/assembly.html), or take a look closer at [EVM Opcodes](https://www.ethervm.io/). There are many other resources for learning Ethereum EVM bytecode available online. I myself spent some time exploring the topic, and have included a working test with functional bytecode, though I had to look up some hints in order to get that working.
+You can review the information in the [Official Solidity Documentation](https://docs.soliditylang.org/en/develop/assembly.html), or take a closer look at [EVM Opcodes](https://www.ethervm.io/). There are many other resources for learning Ethereum EVM bytecode available online. I myself spent some time exploring the topic, and have included a working test with functional bytecode, though I had to look up some hints in order to get that working.
 
 Source contract: [contracts/MagicNum.sol](contracts/MagicNum.sol)  
 Test: [test/E18_MagicNum.test.js](test/E18_MagicNum.test.js)
@@ -433,7 +433,7 @@ Test: [test/E19_AlienCodex.test.js](test/E19_AlienCodex.test.js)
 ---
 ## Ethernaught 20: [Denial](https://ethernaut.openzeppelin.com/level/0xf1D573178225513eDAA795bE9206f7E311EeDEc3)
 
-**Challenge**: Prevent the contract owner from receieving funds when ```withdraw()``` is called
+**Challenge**: Prevent the contract owner from receiving funds when ```withdraw()``` is called
 
 **Exploit**: External call used to break contract execution. Challenge goal can be achieved by burning all remaining gas, or conducting a reentrancy attack that drains all funds.
 
@@ -461,7 +461,7 @@ Test: [test/E21_Shop.test.js](test/E21_Shop.test.js)
 ---
 ## Ethernaught 22: [Dex](https://ethernaut.openzeppelin.com/level/0xC084FC117324D7C628dBC41F17CAcAaF4765f49e)
 
-**Challenge**: Drain funds from a DEX
+**Challenge**: Drain all of one token from a DEX
 
 **Exploit**: Price oracle manipulation
 
@@ -501,7 +501,7 @@ Source contract: [contracts/Dex.sol](contracts/Dex.sol)
 ## Remaining Challenges
 Following are more recently added challenges I have yet to complete
 
-### Ethernaught 23: [DexTwo](https://ethernaut.openzeppelin.com/level/0x5026Ff8C97303951c255D3a7FDCd5a1d0EF4a81a), Drain all funds from a Dex
+### Ethernaught 23: [DexTwo](https://ethernaut.openzeppelin.com/level/0x5026Ff8C97303951c255D3a7FDCd5a1d0EF4a81a), Drain all tokens from a Dex
 
 ### Ethernaught 24: [PuzzleWallet](https://ethernaut.openzeppelin.com/level/0xe13a4a46C346154C41360AAe7f070943F67743c9), Become admin of a proxy contract
 
