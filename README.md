@@ -16,9 +16,9 @@ In doing these exercises I made a sincere attempt to solve them without referrin
 
 **Solution**: Logic in the payable fallback function sets the caller as the owner as long as they have made a prior contribution. Make a contribution, then invoke the ```receive()``` implementation by sending some ETH to the contract via the ```call()``` method.
 
-Challenge contract: [Fallback.sol](contracts\Fallback.sol)  
-Solution contract: [Fallback_Hack.sol](contracts\Fallback_Hack.sol)  
-Test: [E01_Fallback.test.js](test\E01_Fallback.test.js)
+Challenge contract: [contracts/Fallback.sol](contracts/Fallback.sol)  
+Solution contract: [contracts/Fallback_Hack.sol](contracts/Fallback_Hack.sol)  
+Test: [test/E01_Fallback.test.js](test/E01_Fallback.test.js)
 
 ---
 ## Ethernaught 02: [Fallout](https://ethernaut.openzeppelin.com/level/0x5732B2F88cbd19B6f01E3a96e9f0D90B917281E5)
@@ -29,9 +29,9 @@ Test: [E01_Fallback.test.js](test\E01_Fallback.test.js)
 
 **Solution**: A misnamed constructor makes it like any regular public function. This applies to versions of solidity prior to [v0.5.0](https://docs.soliditylang.org/en/latest/050-breaking-changes.html#constructors), where a function with the same name as the contract served as a constructor declaration. Call the misnamed "constructor" while sending any amount of ETH to take ownership of the contract.
 
-Challenge contract: [Fallout.sol](contracts\Fallout.sol)  
-Solution contract: [Fallout_Hack.sol](contracts\Fallout_Hack.sol)  
-Test: [E02_Fallout.test.js](test\E02_Fallout.test.js)
+Challenge contract: [contracts/Fallout.sol](contracts/Fallout.sol)  
+Solution contract: [contracts/Fallout_Hack.sol](contracts/Fallout_Hack.sol)  
+Test: [test/E02_Fallout.test.js](test/E02_Fallout.test.js)
 
 ---
 ## Ethernaught 03: [Coin Flip](https://ethernaut.openzeppelin.com/level/0x4dF32584890A0026e56f7535d0f2C6486753624f)
@@ -42,9 +42,9 @@ Test: [E02_Fallout.test.js](test\E02_Fallout.test.js)
 
 **Solution**: The logic for determining the result of each coin flip is not random, and can be reproduced to predict the outcome. Create a hack contract that copies the logic in the CoinFlip contract to get the outcome just prior to calling the ```flip()``` function.
 
-Source contract: [CoinFlip.sol](contracts\CoinFlip.sol)  
-Solution contract: [CoinFlip_Hack.sol](contracts\CoinFlip_Hack.sol)  
-Test: [E03_CoinFlip.test.js](test\E03_CoinFlip.test.js)
+Source contract: [contracts/CoinFlip.sol](contracts/CoinFlip.sol)  
+Solution contract: [contracts/CoinFlip_Hack.sol](contracts/CoinFlip_Hack.sol)  
+Test: [test/E03_CoinFlip.test.js](test/E03_CoinFlip.test.js)
 
 ---
 ## Ethernaught 04: [Telephone](https://ethernaut.openzeppelin.com/level/0x0b6F6CE4BCfB70525A31454292017F640C10c768)
@@ -55,9 +55,9 @@ Test: [E03_CoinFlip.test.js](test\E03_CoinFlip.test.js)
 
 **Solution**: The codes logic assigns ownership to anyone calling the ```changeOwner()``` function, as long as ```tx.origin != msg.sender```. Create a hack contract that calls the ```changeOwner()``` function. The contract address will be ```msg.sender```, and the user address calling the hack contract which in turn calls the target contract will be ```tx.origin```.
 
-Challenge contract: [Telephone.sol](contracts\Telephone.sol)  
-Solution contract: [Telephone_Hack.sol](contracts\Telephone_Hack.sol)  
-Test: [E04_Telephone.test.js](test\E04_Telephone.test.js)
+Challenge contract: [contracts/Telephone.sol](contracts/Telephone.sol)  
+Solution contract: [contracts/Telephone_Hack.sol](contracts/Telephone_Hack.sol)  
+Test: [test/E04_Telephone.test.js](test/E04_Telephone.test.js)
 
 ---
 ## Ethernaught 05: [Token](https://ethernaut.openzeppelin.com/level/0x63bE8347A617476CA461649897238A31835a32CE)
@@ -68,8 +68,8 @@ Test: [E04_Telephone.test.js](test\E04_Telephone.test.js)
 
 **Solution**: Call the challenge contract to transfer away 21 tokens, which will cause your balance to underflow, giving you  the ```uint256``` maximum value ```(2**256-1)``` tokens. This applies to solidity versions prior to [v0.8.0](https://docs.soliditylang.org/en/latest/080-breaking-changes.html#silent-changes-of-the-semantics), after which checks were added to the compiler.
 
-Challenge contract: [Token.sol](contracts\Token.sol)  
-Test: [E05_Token.test.js](test\E05_Token.test.js)
+Challenge contract: [contracts/Token.sol](contracts/Token.sol)  
+Test: [test/E05_Token.test.js](test/E05_Token.test.js)
 
 ---
 ## Ethernaught 06: [Delegation](https://ethernaut.openzeppelin.com/level/0x9451961b7Aea1Df57bc20CC68D72f662241b5493)
@@ -80,8 +80,8 @@ Test: [E05_Token.test.js](test\E05_Token.test.js)
 
 **Solution**: ```Delegation``` fallback function makes a ```delegatecall()``` passing ```msg.data``` to the ```Delegate``` contract, which has a function that changes owner. Since ```delegatecall()``` uses functions from the delegate, but in the memory context of the caller, the storage memory in ```Delegation``` can be changed by the ```Delegate``` contract. ```Owner``` is declared in the first memory slot in both contracts, so changing owner from the ```Delegate``` contract overwrites owner in the ```Delegation``` contracts storage. Invoke the fallback function in ```Delegation```, passing ```msg.data``` that encodes for a function call to the ```pwn()``` function from the ```Delegate``` contract.
 
-Source contract: [Delegation.sol](contracts\Delegation.sol)  
-Test: [E06_Delegation.test.js](test\E06_Delegation.test.js)
+Source contract: [contracts/Delegation.sol](contracts/Delegation.sol)  
+Test: [test/E06_Delegation.test.js](test/E06_Delegation.test.js)
 
 Note: Currently there appears to be an issue specifically with hardhat that prevents ```delegatecall()``` from working properly. This issue is discussed further [here](https://ethereum.stackexchange.com/questions/114783/solidity-0-8-delegatecall-does-not-mutate-contracts-storage).
 
@@ -113,9 +113,9 @@ await sendTransaction({
 
 If a contract with a balance invokes ```selfdestruct(address receiver)```, its balance will be moved to the specified ```receiver``` address. Create a contract with an ETH balance > 0, then have it use ```selfdestruct()```, passing in the ```Force``` contracts address as ```receiver```.
 
-Source contract: [Force.sol](contracts\Force.sol)  
-Solution contract: [Force_Hack.sol](contracts\Force_Hack.sol)  
-Test: [E07_Force.test.js](test\E07_Force.test.js)
+Source contract: [contracts/Force.sol](contracts/Force.sol)  
+Solution contract: [contracts/Force_Hack.sol](contracts/Force_Hack.sol)  
+Test: [test/E07_Force.test.js](test/E07_Force.test.js)
 
 ---
 ## Ethernaught 08: [Vault](https://ethernaut.openzeppelin.com/level/0xf94b476063B6379A3c8b6C836efB8B3e10eDe188)
@@ -147,8 +147,8 @@ await web3.eth.getStorageAt('<contract instance address>', 1);
 // Using an ethereum RPC call:
 await ethereum.request({method: 'eth_getStorageAt', "params": ["<contract address>", "<hex memory location>", "latest"], "id": 1});
 ```
-Source contract: [Vault.sol](contracts\Vault.sol)  
-Test: [E08_Vault.test.js](test\E08_Vault.test.js)
+Source contract: [contracts/Vault.sol](contracts/Vault.sol)  
+Test: [test/E08_Vault.test.js](test/E08_Vault.test.js)
 
 ---
 ## Ethernaught 09: [King](https://ethernaut.openzeppelin.com/level/0x43BA674B4fbb8B157b7441C2187bCdD2cdF84FD5)
@@ -161,9 +161,9 @@ Test: [E08_Vault.test.js](test\E08_Vault.test.js)
 
 **Notes**: You must plan carefully when any call will be made that turns execution over to another contract. To avoid doing that when money needs to be transfered to someone, use the [withdraw pattern](https://docs.soliditylang.org/en/v0.8.7/common-patterns.html). Also, having local state variables getting updated after an exteral call has been made is a possible opportunity for a [reentrancy](https://consensys.github.io/smart-contract-best-practices/attacks/reentrancy/) attack. Always update state variables before making any external calls. See the [checks-effects-interactions pattern](https://docs.soliditylang.org/en/develop/security-considerations.html?#use-the-checks-effects-interactions-pattern).
 
-Source contract: [King.sol](contracts\King.sol)  
-Solution contract: [King_Hack.sol](contracts\King_Hack.sol)  
-Test: [E09_King.test.js](test\E09_King.test.js)
+Source contract: [contracts/King.sol](contracts/King.sol)  
+Solution contract: [contracts/King_Hack.sol](contracts/King_Hack.sol)  
+Test: [test/E09_King.test.js](test/E09_King.test.js)
 
 ---
 ## Ethernaught 10: [Reentrance](https://ethernaut.openzeppelin.com/level/0xe6BA07257a9321e755184FB2F995e0600E78c16D)
@@ -174,9 +174,9 @@ Test: [E09_King.test.js](test\E09_King.test.js)
 
 **Solution**: Create a contract that lets you ```donate()``` and ```withdraw()``` on the ```Reentrance``` contract. In the ```receive()``` fallback function, call ```withdraw()``` again. Because the Reentrance contract updates balances only after sending funds, it is possible to call ```withdraw()``` recursively before execution ever proceeds to the point where a balance update happens that would prevent withdrawing more than the users balance. 
 
-Source contract: [Reentrance.sol](contracts\Reentrance.sol)  
-Solution contract: [Reentrance_Hack.sol](contracts\Reentrance_Hack.sol)  
-Test: [E10_Reentrance.test.js](test\E10_Reentrance.test.js)
+Source contract: [contracts/Reentrance.sol](contracts/Reentrance.sol)  
+Solution contract: [contracts/Reentrance_Hack.sol](contracts/Reentrance_Hack.sol)  
+Test: [test/E10_Reentrance.test.js](test/E10_Reentrance.test.js)
 
 ---
 ## Ethernaught 11: [Elevator](https://ethernaut.openzeppelin.com/level/0xaB4F3F2644060b2D960b0d88F0a42d1D27484687)
@@ -189,9 +189,9 @@ Test: [E10_Reentrance.test.js](test\E10_Reentrance.test.js)
 
 Create the ```Building``` contract. Implement the ```isLastFloor()``` function so that it first returns ```false``` when someone calls ```goTo(uint _floor)```, and then returns ```true``` on the second call, which is the value it uses to update the ```bool public top``` variable.
 
-Source contract: [Elevator.sol](contracts\Elevator.sol)  
-Solution contract: [Elevator_Hack.sol](contracts\Elevator_Hack.sol)  
-Test: [E11_Elevator.test.js](test\E11_Elevator.test.js)
+Source contract: [contracts/Elevator.sol](contracts/Elevator.sol)  
+Solution contract: [contracts/Elevator_Hack.sol](contracts/Elevator_Hack.sol)  
+Test: [test/E11_Elevator.test.js](test/E11_Elevator.test.js)
 
 ---
 ## Ethernaught 12: [Privacy](https://ethernaut.openzeppelin.com/level/0x11343d543778213221516D004ED82C45C3c8788B)
@@ -241,9 +241,9 @@ We read the memory for the contract at slot 5, which will give us a ```bytes32``
 await web3.eth.getStorageAt('<contract address>', 5);
 ```
 
-Source contract: [Privacy.sol](contracts\Privacy.sol)  
-Solution contract: [Privacy_Hack.sol](contracts\Privacy_Hack.sol)  
-Test: [E12_Privacy.test.js](test\E12_Privacy.test.js)
+Source contract: [contracts/Privacy.sol](contracts/Privacy.sol)  
+Solution contract: [contracts/Privacy_Hack.sol](contracts/Privacy_Hack.sol)  
+Test: [test/E12_Privacy.test.js](test/E12_Privacy.test.js)
 
 ---
 ## Ethernaught 13: [GatekeeperOne](https://ethernaut.openzeppelin.com/level/0x9b261b23cE149422DE75907C6ac0C30cEc4e652A)
@@ -315,9 +315,9 @@ Finally we can see we can get the key we need using the bitmask operator ```&```
 
 ```bytes8 _gateKey = bytes8(tx.origin) & 0xFFFFFFFF0000FFFF;```
 
-Source contract: [GatekeeperOne.sol](contracts\GatekeeperOne.sol)  
-Solution contract: [GatekeeperOne_Hack.sol](contracts\GatekeeperOne_Hack.sol)  
-Test: [E13_GatekeeperOne.test.js](test\E13_GatekeeperOne.test.js)
+Source contract: [contracts/GatekeeperOne.sol](contracts/GatekeeperOne.sol)  
+Solution contract: [contracts/GatekeeperOne_Hack.sol](contracts/GatekeeperOne_Hack.sol)  
+Test: [test/E13_GatekeeperOne.test.js](test/E13_GatekeeperOne.test.js)
 
 ---
 ## Ethernaught 14: [GatekeeperTwo](https://ethernaut.openzeppelin.com/level/0xdCeA38B2ce1768E1F409B6C65344E81F16bEc38d)
@@ -347,9 +347,9 @@ You would need to know that the equation above is commutative (I didn't), meanin
 
 Knowing this, we can solve for our needed ```gatekey```, which is part of term b in the above equations.
 
-Source contract: [GatekeeperTwo.sol](contracts\GatekeeperTwo.sol)  
-Solution contract: [GatekeeperTwo_Hack.sol](contracts\GatekeeperTwo_Hack.sol)  
-Test: [E14_GatekeeperTwo.test.js](test\E14_GatekeeperTwo.test.js)
+Source contract: [contracts/GatekeeperTwo.sol](contracts/GatekeeperTwo.sol)  
+Solution contract: [contracts/GatekeeperTwo_Hack.sol](contracts/GatekeeperTwo_Hack.sol)  
+Test: [test/E14_GatekeeperTwo.test.js](test/E14_GatekeeperTwo.test.js)
 
 ---
 ## Ethernaught 15: [NaughtCoin](https://ethernaut.openzeppelin.com/level/0x096bb5e93a204BfD701502EB6EF266a950217218)
@@ -360,8 +360,8 @@ Test: [E14_GatekeeperTwo.test.js](test\E14_GatekeeperTwo.test.js)
 
 **Solution**: The key to this one is looking at the ERC20 contract it inherits from. The ```transfer()``` function implementation in the ```NaughtCoin``` contract has a 10 year restriction implemented as a ```lockTokens``` modifier. But there is another option for transferring an ERC20 token: ```transferFrom()```. That function has not been overridden in the ```NaughtCoin``` contract, so the base ERC20 implementation can be used without the ```lockTokens``` restriction.
 
-Source contract: [NaughtCoin.sol](contracts\NaughtCoin.sol)  
-Test: [E15_NaughtCoin.test.js](test\E15_NaughtCoin.test.js)
+Source contract: [contracts/NaughtCoin.sol](contracts/NaughtCoin.sol)  
+Test: [test/E15_NaughtCoin.test.js](test/E15_NaughtCoin.test.js)
 
 ---
 ## Ethernaught 16: [Preservation](https://ethernaut.openzeppelin.com/level/0x97E982a15FbB1C28F6B8ee971BEc15C78b3d263F)
@@ -372,7 +372,7 @@ Test: [E15_NaughtCoin.test.js](test\E15_NaughtCoin.test.js)
 
 **Solution**: ```Preservation``` makes ```a delegatecall()```  in ```setFirstTime(uint _timeStamp)``` to the ```LibraryContract```, calling ``setTime(uint _time)``, which sets a ```uint``` value in storage slot 0 (called ```storedTime``` in the ```LibraryContract```. This will overwrite ```address public timeZone1Library``` variable in the ```Preservation``` contract. If we call ```setFirstTime(uint _timeStamp)```, but pass in a contract address for our own contract, this will get set as the new ```timeZone1Library``` address. Making another call to ```setFirstTime(uint _timeStamp)``` in the ```Library``` contract will then invoke a ```delegatecall()``` to our own contract, where we can intentionally overwrite the 3rd variable declared in the ```Preservation``` contract, which is ```address public owner```.
 
-Source contract: [Preservation.sol](contracts\Preservation.sol)  
+Source contract: [contracts/Preservation.sol](contracts/Preservation.sol)  
 
 ---
 ## Ethernaught 17: [Recovery](https://ethernaut.openzeppelin.com/level/0x0EB8e4771ABA41B70d0cb6770e04086E5aee5aB2)
@@ -401,7 +401,7 @@ await ethers.utils.getContractAddress('<ethernaught instance address'>, 1);
 ```
 After getting the contract address we need, we can call the ```destroy()``` function on the ```SimpleToken``` contract, which calls ```selfdestruct(address receiver)``` to have its ether balance sent to our address.
 
-Source contract: [Recovery.sol](contracts\Recovery.sol)  
+Source contract: [contracts/Recovery.sol](contracts/Recovery.sol)  
 
 ---
 ## Ethernaught 18: [MagicNum](https://ethernaut.openzeppelin.com/level/0x200d3d9Ac7bFd556057224e7aEB4161fED5608D0)
@@ -414,8 +414,8 @@ Source contract: [Recovery.sol](contracts\Recovery.sol)
 
 You can review the information in the [Official Solidity Documentation](https://docs.soliditylang.org/en/develop/assembly.html), or take a look closer at [EVM Opcodes](https://www.ethervm.io/). There are many other resources for learning Ethereum EVM bytecode available online. I myself spent some time exploring the topic, and have included a working test with functional bytecode, though I had to look up some hints in order to get that working.
 
-Source contract: [MagicNum.sol](contracts\MagicNum.sol)  
-Test: [E18_MagicNum.test.js](test\E18_MagicNum.test.js)
+Source contract: [contracts/MagicNum.sol](contracts/MagicNum.sol)  
+Test: [test/E18_MagicNum.test.js](test/E18_MagicNum.test.js)
 
 ---
 ## Ethernaught 19: [AlienCodex](https://ethernaut.openzeppelin.com/level/0xda5b3Fb76C78b6EdEE6BE8F11a1c31EcfB02b272)
@@ -426,9 +426,9 @@ Test: [E18_MagicNum.test.js](test\E18_MagicNum.test.js)
 
 **Solution**: The AlienCodex has an array ```bytes32[] public codex``` of length 0, and a function ```retract()``` that decrements the length of the array. Calling ```retract()``` creates an underflow that expands the length of the ```bytes32``` array to ```uint256``` max value, which is the entire storage memory allocated to any EVM contract. We then can calculate which index in the array will line up with the ```owner``` variable already in memory, and overwrite it by writing to the ```codex``` array at the correct index.
 
-Source contract: [AlienCodex.sol](contracts\AlienCodex.sol)  
-Solution contract: [AlienCodex_Hack.sol](contracts\AlienCodex_Hack.sol)  
-Test: [E19_AlienCodex.test.js](test\E19_AlienCodex.test.js)
+Source contract: [contracts/AlienCodex.sol](contracts/AlienCodex.sol)  
+Solution contract: [contracts/AlienCodex_Hack.sol](contracts/AlienCodex_Hack.sol)  
+Test: [test/E19_AlienCodex.test.js](test/E19_AlienCodex.test.js)
 
 ---
 ## Ethernaught 20: [Denial](https://ethernaut.openzeppelin.com/level/0xf1D573178225513eDAA795bE9206f7E311EeDEc3)
@@ -439,9 +439,9 @@ Test: [E19_AlienCodex.test.js](test\E19_AlienCodex.test.js)
 
 **Solution**: After registering as a "partner" with ```setWithdrawPartner(address _partner)```, if the ```withdraw()``` is called funds are first transferred to the partner via ```call()``` method, before transferring funds to the owner. Create a contract that breaks the ```withdraw()``` function in the ```receive()``` fallback function, by either burning any remaining gas, or draining all funds via reentrancy.
 
-Source contract: [Denial.sol](contracts\Denial.sol)  
-Solution contract: [Denial_Hack.sol](contracts\Denial_Hack.sol)  
-Test: [E20_Denial.test.js](test\E20_Denial.test.js)
+Source contract: [contracts/Denial.sol](contracts/Denial.sol)  
+Solution contract: [contracts/Denial_Hack.sol](contracts/Denial_Hack.sol)  
+Test: [test/E20_Denial.test.js](test/E20_Denial.test.js)
 
 ---
 ## Ethernaught 21: [Shop](https://ethernaut.openzeppelin.com/level/0x3aCd4766f1769940cA010a907b3C8dEbCe0bd4aB)
@@ -454,9 +454,9 @@ Test: [E20_Denial.test.js](test\E20_Denial.test.js)
 
 The ```Shop``` contract ```buy()``` function sets ```isSold``` to true after the first ```buyer.price()``` call, as long as the value is greater than the current price. Create the ```Buyer``` contract, and implement the ```price()``` function so that it returns an amount < 100 if ```isSold``` is true, or > 100 if ```isSold``` is false.
 
-Source contract: [Shop.sol](contracts\Shop.sol)  
-Solution contract: [Shop_Hack.sol](contracts\Shop_Hack.sol)  
-Test: [E21_Shop.test.js](test\E21_Shop.test.js)
+Source contract: [contracts/Shop.sol](contracts/Shop.sol)  
+Solution contract: [contracts/Shop_Hack.sol](contracts/Shop_Hack.sol)  
+Test: [test/E21_Shop.test.js](test/E21_Shop.test.js)
 
 ---
 ## Ethernaught 22: [Dex](https://ethernaut.openzeppelin.com/level/0xC084FC117324D7C628dBC41F17CAcAaF4765f49e)
@@ -495,7 +495,7 @@ await contract.swap(await contract.token1(), await contract.token2(), await cont
 
 ```
 
-Source contract: [Dex.sol](contracts\Dex.sol)  
+Source contract: [contracts/Dex.sol](contracts/Dex.sol)  
 
 ---
 ## Remaining Challenges
