@@ -1,5 +1,7 @@
 # Ethernaught Coding Challenges
-## [Donnie Misino](https://www.linkedin.com/in/dmisino/), 5/24/2022
+My solutions to the OpenZeppelin smart contract security coding challenges
+
+## Overview
 
 The [Ethernaught Solidity Challenges](https://ethernaut.openzeppelin.com/) are a set of 26 security related problems published by OpenZeppelin. These challenges start off fairly simple, then become progressively more difficult. This project contains my solutions to those problems. 
 
