@@ -1,4 +1,4 @@
-# Ethernaught Coding Challenges
+# ethernaught
 My solutions to the OpenZeppelin smart contract security coding challenges
 
 ## Overview
